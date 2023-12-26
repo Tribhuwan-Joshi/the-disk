@@ -1,20 +1,13 @@
 from record import Recorder
 from openai import OpenAI
 import os
-os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
-import pygame  # Import pygame
+from playsound import playsound
 from pathlib import Path
 
 client = OpenAI(api_key=os.environ['OPENAI_KEY'])
 
 def play_audio(file_path):
-    pygame.mixer.init()
-    pygame.mixer.music.load(file_path)
-    pygame.mixer.music.play()
-    while pygame.mixer.music.get_busy():  # Wait for audio to finish playing
-        pygame.time.Clock().tick(10)
-    pygame.mixer.music.unload()
-
+    playsound(file_path)
 def main():
     recorder = Recorder()
     greeted = False
@@ -46,7 +39,7 @@ def main():
             response = client.chat.completions.create(
                 model="gpt-4",
                 messages=[
-                    {"role": "system", "content": "You are a helpful assistant built by Deepware. Your name is The Disk"},
+                    {"role": "system", "content": "You are a helpful assistant built by Deepware. Your name is The Disk. Always answer to the point and consise. Try to keep the conversation continue by asking back question like human. Browse internet for current date and time."},
                     {"role": "user", "content": transcript}
                 ]
             )
