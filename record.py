@@ -21,7 +21,7 @@ class Recorder:
         self.stream.stop()
         self.stream.close()
         record = np.concatenate(self.recorded_frames, axis=0)
-        write("rec.wav", self.samplerate, record)
+        write("./audio/rec.wav", self.samplerate, record)
         print("Recording stopped and saved as 'rec.wav'.")
 
     def callback(self, indata, frames, time, status):
