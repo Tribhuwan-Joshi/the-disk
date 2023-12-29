@@ -50,7 +50,8 @@ def main():
             recorder.stop_recording()
             with open('./audio/rec.wav', 'rb') as audio_file:
                 transcript = client.audio.transcriptions.create(
-                    model='whisper-1', file=audio_file, response_format="text"
+                    model='whisper-1', file=audio_file, response_format="text",
+                    language="en"
                 )
 
                 if "exit" in transcript.lower():
@@ -70,7 +71,8 @@ def main():
                 messages=[
                     {"role": "system", "content": "You are a helpful assistant built by Deepware. Your name is The Disk. Always answer to the point and as breif as possible. Try to keep the conversation continue by asking back question like human. Browse internet for current date and time."},
                     {"role": "user", "content": transcript}
-                ]
+                ],
+                language="en"
             )
 
             voice_response = client.audio.speech.create(
